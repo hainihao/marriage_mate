@@ -17,21 +17,22 @@ public class Run <K,V>{
     private ArrayList<Person> maleList;
     private ArrayList<Person> femaleList;
     private ArrayList<Person> playersList;
-    private ArrayList<Person> man ;
-    private ArrayList<Person> mon ;
+
+    HashMap<Person,Person> boyLikes;
+
     int id;
 
     public Run(String malePath,String femalePath,String playersPath) throws IOException {
 
-        this.mon = new <Person>ArrayList();
-        this.man = new <Person>ArrayList();
+
         this.maleList = new <Person>ArrayList();
         this.femaleList = new <Person>ArrayList();
         this.playersList = new<Person> ArrayList();
 
-        this.mon.addAll(saveCount(femalePath));
-        this.man.addAll(saveCount(malePath));
+        this.femaleList.addAll(saveCount(femalePath));
+        this.maleList.addAll(saveCount(malePath));
         this.playersList.addAll(saveCount(playersPath));
+        boyLikes = chooessgirls(this.femaleList);
         this.id = 0;
     }
 
@@ -49,33 +50,36 @@ public class Run <K,V>{
      */
     private void marryArithmetic(Person person) {
 
-        Person smartBoy;
-        Person bastGirl;
-        Person p;
-        Person p_;
-        HashMap<Person, ArrayList<Person>> girls = new HashMap<>();
-
+        Person smartBoy = null;
+        Person bastGirl = null;
+        Person p = null;
+        Person p_ = null;
+        HashMap<Person,Person> hashMap = this.boyLikes;
+        ArrayList lastBoy = new ArrayList();
+        ArrayList lastGirl;
         int k = person.getId();
-
-        if ( k ==0 ){           //主角加入
-            person.setId(-1);
-            this.mon.add(person);
+        person.setId(-1);
+        if (k==1){
+            hashMap.put(person,mateSort(this.femaleList,person));
         }else {
-            person.setId(-1);
-            this.man.add(person);
+
         }
 
-        this.maleList =(ArrayList) man.clone();
-        this.femaleList =(ArrayList) mon.clone();
-        int size = this.man.size()>this.mon.size()? this.mon.size() : this.man.size();
+        HashMap<Person, ArrayList<Person>> girls = new HashMap<>();
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < this.boyLikes.size(); i++) {
 
-            girls = chooseGirl(girls);        //选出女生列表
+//            HashMap arrayList = chooessgirls();
+
+            if (bastGirl!=null){
+                hashMap = chooessLast(hashMap,lastBoy);
+            }
+            girls = chooseGirl(hashMap);
 
             bastGirl= getBastGirl(girls);      //选出最受欢迎的女生
-
+            lastBoy = girls.get(bastGirl);
             smartBoy = girlsChoose(bastGirl, girls.get(bastGirl));         //让女生选出中意的男生
+            lastBoy.remove(smartBoy);
 
             if (k==1){
                  p  = smartBoy;
@@ -87,21 +91,38 @@ public class Run <K,V>{
             if ( p ==person ) {
                 id++;
                 if (k == 0){
-                    mon.remove(p);
+//                    mon.remove(p);
                     System.out.println("第"+id+"组player加入："+p_.getId()+" | "+" -1 ");
                 }else {
-                    man.remove(p);
+//                    man.remove(p);
                     System.out.println("第"+id+"组player加入："+"-1 "+" | "+p_.getId());
                 }
                 return ;
-            } else {
-                maleList.remove(smartBoy);
-                femaleList.remove(bastGirl);
             }
-            girls.clear();
+
+            girls.remove(bastGirl);
         }
         id++;
         System.out.println("第"+id+"组player加入："+"     ");
+    }
+
+    public HashMap<Person,Person> chooessLast(HashMap<Person,Person> hiashMap,ArrayList<Person> arrayList){
+
+        ArrayList<Person> gilr = new ArrayList<>();
+        Person p = new Person();
+        Iterator<Person> iterator1 = hiashMap.keySet().iterator();
+        while (iterator1.hasNext()){
+            Person next = iterator1.next();
+            gilr.add(next);
+        }
+
+        Iterator<Person> iterator = arrayList.iterator();
+        while (iterator.hasNext()){
+            Person next = iterator.next();
+            p = mateSort(gilr,next);
+            hiashMap.put(next,p);
+        }
+        return hiashMap;
     }
 
     /**
@@ -173,43 +194,78 @@ public class Run <K,V>{
         return bastGirl;
     }
 
+    public HashMap<Person,Person> boy_afresh(HashMap<Person,Person> boysLike,Person gilr){
+
+        Iterator<Map.Entry<Person, Person>> iterator = boysLike.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<Person, Person> next = iterator.next();
+            if (countScore(next.getKey(),gilr)>countScore(next.getKey(),next.getValue())){
+                next.setValue(gilr);
+            }else if (countScore(next.getKey(),gilr)==countScore(next.getKey(),next.getValue())){
+                if ((gilr.getAppearance()+gilr.getCharacter()+gilr.getTreasure())>(next.getValue().getAppearance()+
+                        next.getValue().getCharacter()+next.getValue().getTreasure())){
+                    next.setValue(gilr);
+                }
+            }
+        }
+        return boysLike;
+    }
     /**
      * 选出选择女生的列表
      * @param girls HashMap<Person,ArrayList<Person>>   女生列表
      * @return HashMap <Person,ArrayList<Person>>   女生列表
      */
-    private HashMap<Person,ArrayList<Person>> chooseGirl(HashMap<Person,ArrayList<Person>> girls){
+    private HashMap<Person,ArrayList<Person>> chooseGirl(HashMap<Person, Person> chooessgirls){
 
-        ArrayList<Person> list;
-        Person likePerson;
+        ArrayList<Person> personList = new ArrayList<>();
+        HashMap<Person,ArrayList<Person>> girls = new HashMap<>();
 
-        for (Person next :  this.maleList){              //遍历男生列表 让男生选出中意女生
-            likePerson =  mateSort(next);         //让男生选出中意女子
-            if (girls.containsKey(likePerson)) {
-                list = girls.get(likePerson);
-                list.add(next);
-            } else {
-                list = new ArrayList<>();
-                list.add(next);
+        Iterator<Map.Entry<Person, Person>> iterator = chooessgirls.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<Person, Person> next = iterator.next();
+            if (!girls.containsKey(next.getValue())){
+
+                personList = new ArrayList<>();
+                personList.add(next.getKey());
+                girls.put(next.getValue(),personList);
+
+            }else {
+                ArrayList p = girls.get(next.getValue());
+                p.add(next.getKey());
+                girls.put(next.getValue(),p);
             }
-            girls.put(likePerson, list);
         }
         return girls;
     }
 
+    /**
+     * 让男生们选出最喜欢的女生；
+     * @return likePersonList --HashMap
+     */
+    public HashMap<Person,Person> chooessgirls(ArrayList<Person> arrayList){
+
+        Person likeGirl = new Person();
+        HashMap<Person,Person> likePersonList = new HashMap<>();
+
+        for (Person next :  this.maleList){              //遍历男生列表 让男生选出中意女生
+            likeGirl = mateSort(arrayList,next);
+            likePersonList.put(next,likeGirl);
+        }
+        return likePersonList;
+    }
 
     /**
      * 让指定男生在女生里面选一个中意女生
      * @param person Person 给定男生
      * @return Person 中意女生
      */
-    private Person mateSort(Person person){
+    private Person mateSort(ArrayList<Person> arrayList,Person person){
         int max = 0;
         Person likePerson = null;
         int maxScore = 0;
         int score=0;
 
-        for (Person next : femaleList){
+        for (Person next : arrayList){
             score = next.getAppearance()+next.getTreasure()+next.getCharacter();
             if (max<=countScore(person,next)){
                 if ((max==(countScore(person,next)))){

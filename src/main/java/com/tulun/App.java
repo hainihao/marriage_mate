@@ -6,9 +6,9 @@ public class App {
 
     public static void main(String[] args) throws Exception{
 
-        String path1 = "/Users/liguozheng/Documents/Java/java_2018_xia/marriage_mate/src/male.txt";
-        String path2 = "/Users/liguozheng/Documents/Java/java_2018_xia/marriage_mate/src/female.txt";
-        String path3 = "/Users/liguozheng/Documents/Java/java_2018_xia/marriage_mate/src/players.txt";
+        String path1 = "src/male.txt";
+        String path2 = "src/female.txt";
+        String path3 = "src/players.txt";
 
         Run a = new Run(path1,path2,path3);
 
