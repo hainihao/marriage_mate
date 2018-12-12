@@ -362,6 +362,7 @@ public class Run <K,V>{
      */
     private int countScore(Person person,Person next){
 
+
         return person.getTreasureLook()*next.getTreasure()+
                 person.getCharacterLook()*next.getCharacter()+
                 person.getAppearanceLook()*next.getAppearance();
