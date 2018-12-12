@@ -341,6 +341,7 @@ public class Run <K,V>{
     private ArrayList<Person> saveCount(String path) throws IOException {
 
         ArrayList<Person> hashmap = new ArrayList();
+        //获取文件
         BufferedReader bf = new BufferedReader(new FileReader(new File(path)));
         String line;
 
