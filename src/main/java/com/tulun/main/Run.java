@@ -68,7 +68,6 @@ public class Run{
 
             list.put(person,arrayList);
         }
-
         return list;
     }
 
@@ -115,13 +114,11 @@ public class Run{
 
             if (k==1&&smartBoy==person){
                 id++;
-
                 System.out.println("第"+id+"组加入： "+"-1 | "+bastGirl.getId());
                 return;
             }else if (k==0&&bastGirl==person){
                 id++;
                 System.out.println("第"+id+"组加入： "+smartBoy.getId()+" | "+"-1 ");
-
                 return;
             }
 
