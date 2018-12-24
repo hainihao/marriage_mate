@@ -11,7 +11,7 @@ import java.util.*;
  * @description:
  */
 @SuppressWarnings("all")
-public class Run{
+public class Until{
 
     private ArrayList<Person> maleList;             //存储男生列表
     private ArrayList<Person> femaleList;           //存储女生列表
@@ -26,7 +26,7 @@ public class Run{
      * @param playersPath  String
      * @throws IOException throws IOException
      */
-    public Run(String malePath,String femalePath,String playersPath) throws IOException {
+    public Until(String malePath,String femalePath,String playersPath) throws IOException {
 
         this.maleList = new <Person>ArrayList();
         this.femaleList = new <Person>ArrayList();

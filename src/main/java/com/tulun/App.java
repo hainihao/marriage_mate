@@ -1,7 +1,7 @@
 package com.tulun;
 
 
-import com.tulun.main.Run;
+import com.tulun.main.Until;
 
 public class App {
 
@@ -13,7 +13,7 @@ public class App {
 
 
         long start = System.currentTimeMillis();
-        Run objectObjectRun = new Run(path1,path2,path3);
+        Until objectObjectRun = new Until(path1,path2,path3);
         objectObjectRun.start();
 
         long end = System.currentTimeMillis();

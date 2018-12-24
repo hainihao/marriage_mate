@@ -13,7 +13,7 @@ import java.util.Objects;
 @SuppressWarnings("all")
 
 
-@ToString
+
 public class Person {
 
     private int id;        //ID
@@ -32,9 +32,6 @@ public class Person {
         this.appearanceLook = appearanceLook;
         this.treasureLook = treasureLook;
         this.characterLook = characterLook;
-    }
-
-    public Person() {
     }
 
     public int getId() {
@@ -92,25 +89,5 @@ public class Person {
     public void setCharacterLook(int characterLook) {
         this.characterLook = characterLook;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Person)) return false;
-        Person person = (Person) o;
-        return id == person.id &&
-                appearance == person.appearance &&
-                treasure == person.treasure &&
-                character == person.character &&
-                appearanceLook == person.appearanceLook &&
-                treasureLook == person.treasureLook &&
-                characterLook == person.characterLook;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, appearance, treasure, character, appearanceLook, treasureLook, characterLook);
-    }
-
 
 }
