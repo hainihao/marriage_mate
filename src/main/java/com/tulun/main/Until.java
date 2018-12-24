@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * @author:liguozheng
- * @Date:2018/10/24
+ * @Date:2018/12/24
  * @time:21:46
  * @description:
  */
@@ -131,7 +131,7 @@ public class Until{
      * @param boyList ArrayList
      * @return  HashMap
      */
-    public HashMap<Person,ArrayList<Person>> restartGirls(HashMap<Person,ArrayList<Person>> girls,
+    private HashMap<Person,ArrayList<Person>> restartGirls(HashMap<Person,ArrayList<Person>> girls,
                                                                       ArrayList<Person> girlsList,
                                                                          ArrayList<Person> boyList){
 
