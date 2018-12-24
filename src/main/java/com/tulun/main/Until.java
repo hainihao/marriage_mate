@@ -55,35 +55,6 @@ public class Until{
 
     }
 
-    /**
-     * 对HashMap的深拷贝
-     * @param pList HashMap
-     * @return HashMap
-     */
-    private HashMap<Person,ArrayList<Person>> cloneDome(HashMap<Person, ArrayList<Person>> pList){
-
-        HashMap<Person,ArrayList<Person>> list = new HashMap<>();
-
-        Iterator<Map.Entry<Person, ArrayList<Person>>> iterator = pList.entrySet().iterator();
-        while (iterator.hasNext()){
-            Map.Entry<Person, ArrayList<Person>> next = iterator.next();
-            ArrayList<Person> value = next.getValue();
-            Person key = next.getKey();
-            ArrayList<Person> arrayList = new ArrayList<>();
-            Person person = new Person(key.getId(),key.getAppearance(),key.getTreasure(),key.getCharacter(),
-                    key.getAppearanceLook(),key.getTreasureLook(),key.getCharacterLook());
-            Iterator<Person> iterator1 = value.iterator();
-            while (iterator1.hasNext()) {
-                Person next1 = iterator1.next();
-                arrayList.add(new Person(next1.getId(),next1.getAppearance(),next1.getTreasure(),next1.getCharacter(),next1.getAppearanceLook()
-                ,next1.getTreasureLook(),next1.getCharacterLook()));
-            }
-
-            list.put(person,arrayList);
-        }
-        return list;
-    }
-
 
     /**
      * 把一个主角放入进行匹配到完成
@@ -233,6 +204,34 @@ public class Until{
         return girls;
     }
 
+    /**
+     * 对HashMap的深拷贝
+     * @param pList HashMap
+     * @return HashMap
+     */
+    private HashMap<Person,ArrayList<Person>> cloneDome(HashMap<Person, ArrayList<Person>> pList){
+
+        HashMap<Person,ArrayList<Person>> list = new HashMap<>();
+
+        Iterator<Map.Entry<Person, ArrayList<Person>>> iterator = pList.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<Person, ArrayList<Person>> next = iterator.next();
+            ArrayList<Person> value = next.getValue();
+            Person key = next.getKey();
+            ArrayList<Person> arrayList = new ArrayList<>();
+            Person person = new Person(key.getId(),key.getAppearance(),key.getTreasure(),key.getCharacter(),
+                    key.getAppearanceLook(),key.getTreasureLook(),key.getCharacterLook());
+            Iterator<Person> iterator1 = value.iterator();
+            while (iterator1.hasNext()) {
+                Person next1 = iterator1.next();
+                arrayList.add(new Person(next1.getId(),next1.getAppearance(),next1.getTreasure(),next1.getCharacter(),next1.getAppearanceLook()
+                        ,next1.getTreasureLook(),next1.getCharacterLook()));
+            }
+
+            list.put(person,arrayList);
+        }
+        return list;
+    }
 
 
     /**

@@ -1,9 +1,5 @@
 package com.tulun.people;
 
-import lombok.*;
-
-import java.util.Objects;
-
 /**
  * @author:liguozheng
  * @Date:2018/10/24
@@ -11,8 +7,6 @@ import java.util.Objects;
  * @description:
  */
 @SuppressWarnings("all")
-
-
 
 public class Person {
 
